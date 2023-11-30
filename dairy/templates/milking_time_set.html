@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Set Milking Time</h2>
+  <p>Please set the milking time for your cows:</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

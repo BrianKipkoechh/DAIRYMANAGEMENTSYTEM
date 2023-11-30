@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>dairy expenses</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  <ol>
+      <li>employee salary</li>
+      <li>dairy meal</li>
+      <li>treatment</li>
+  </ol>
+  </form>
+{% endblock %}

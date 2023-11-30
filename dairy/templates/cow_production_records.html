@@ -1,0 +1,28 @@
+<!-- dairyapp/cow_production_records.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cow Production Records - {{ cow.name }}</title>
+    <link rel="{% static 'styles.css' %}"
+</head>
+<body>
+    <h1>Cow Production Records - {{ cow.name }}</h1>
+
+    <h2>Add Production Record</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Record</button>
+    </form>
+
+    <h2>Existing Production Records</h2>
+    <ul>
+        {% for record in records %}
+            <li>{{ record.date }} - {{ record.amount }} liters</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'cow_list' %}">Back to Cow List</a>
+</body>
+</html>
