@@ -1,21 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery Reminder</title>
-    <!-- Add your custom CSS styles or include a stylesheet if needed -->
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block title %}Delivery Reminder{% endblock %}
+
+{% block header %}Delivery Reminder{% endblock %}
+
+{% block content %}
     <div>
         <h1>Delivery Reminder</h1>
         <p>Your delivery is scheduled for the set time. Please be prepared!</p>
     </div>
 
     <!-- You can include additional information or customize the template as needed -->
-
-</body>
-</html>
+{% endblock %}

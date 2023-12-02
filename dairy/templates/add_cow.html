@@ -1,22 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Cow</title>
-    <link rel="{% static 'styles.css' %}"
-</head>
+{% extends 'base.html' %}
 
-<body>
-    <h1>Add a New Cow</h1>
+{% block title %}Add Cow{% endblock %}
+
+{% block header %}Add a New Cow{% endblock %}
+
+{% block content %}
     <form method="post" action="{% url 'add_cow' %}">
-
+        {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit">Add Cow</button>
-
     </form>
     <a href="{% url 'cow_list' %}">Back to Cow List</a>
-
-
-</body>
-{% csrf_token %}
-        {{ form.as_p }}
-</html>
+{% endblock %}

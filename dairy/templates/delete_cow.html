@@ -1,17 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Cow</title>
-    <link rel="{% static 'styles.css' %}"
-</head>
-<body>
-    <h1>Delete Cow</h1>
-    <p>Are you sure you want to delete "{{ cow.name }}"?</p>
-    <form method="post" action="">
+{% extends 'base.html' %}
+{% block title %}delete_cow - {{ cow.name }}{% endblock %}
+
+{% block header %}delete_cow {{ cow.name }}{% endblock %}
+
+{% block content %}
+h1>Delete Cow</h1>
+    <p>Are you sure you want to delete "{{ object.name }}"?</p>
+    <form method="post">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit">Confirm Delete</button>
+        <a href="{% url 'cow_list' %}">Cancel</a> 
     </form>
-    <a href="{% url 'cow_list' %}">Cancel</a>
-</body>
-</html>
+    {% endblock %}

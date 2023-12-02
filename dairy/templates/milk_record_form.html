@@ -1,12 +1,11 @@
-<!-- dairyapp/milk_record_form.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Create/Update Milk Record</h2>
-  <form method="post">
+  <!-- Your add milk record form goes here -->
+  <h2>Add Milk Record</h2>
+  <form method="post" action="{% url 'milk_record_create' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit">Add Milk Record</button>
   </form>
 {% endblock %}

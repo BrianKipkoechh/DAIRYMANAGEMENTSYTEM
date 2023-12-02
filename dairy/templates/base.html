@@ -5,25 +5,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="{% static 'styles.css' %}"
+    <link rel="stylesheet" href="{% static 'm.css' %}">
+   
+  
     <title>Dairy Management System</title>
 </head>
 <body>
-
-    <header>
-        <h1>Dairy Management System</h1>
-    </header>
-
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Cows</a></li>
-            <li><a href="#">Expenses</a></li>
-            <li><a href="#">Milk Records</a></li>
-            <li><a href="#">Deliveries</a></li>
-        </ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'cow_list' %}">Cows</a></li>
+            
+            <li><a href="{% url 'milk_record_list' %}">Milk Records</a></li>
+          
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+            <li><a href="{% url 'add_cow' %}">Add Cow</a></li>
+          
+            <li><a href="{% url 'milking_time_set' %}">Set Milking Time</a></li> 
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'expense_form' %}">Enter Expenses</a></li>
+           
     </nav>
+    {% block content %}
+    <div>
+        <h1>Dairy Management System</h1>
+    </div>
+
+    
+    
+    <div>
+        
+    </div>
+
+    <h2>Signup</h2>
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    <h1>Delete Cow</h1>
+        <p>Are you sure you want to delete "{{ object.name }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm Delete</button>
+            <a href="{% url 'cow_list' %}">Cancel</a> 
+        </form>
+
+   
+    <h2>Enter Expenses</h2>
+    <form method="post" action="{% url 'expense_form' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 
     <main>
         <!-- Your main content goes here -->
@@ -32,7 +72,11 @@
     <footer>
         <p>&copy; 2023 Brian Kipkoech</p>
     </footer>
-
-    <script src="scripts.js"></script>
+   
+    {% endblock %}
+    <script src="{% static 'scripts.js' %}"></script>
+    
+    
 </body>
+
 </html>

@@ -1,23 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Cow List</title>
-    <link rel="{% static 'styles.css' %}"
-</head>
-<body>
-    <h1>List of Cows</h1>
-    <ul>
-        {% for cow in cows %}
-            <li>
-                Name: {{ cow.name }}<br>
-                Breed: {{ cow.breed }}<br>
-                Pregnancy Status: {{ cow.pregnancy_status }}<br>
-                Last Service Date: {{ cow.last_service_date }}<br>
-                Expected Delivery Date: {{ cow.expected_delivery_date }}<br><br>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="#">Add a Cow</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+
+  <!-- Display your list of cows here -->
+  {% for cow in cows %}
+    {{ cow.cow_name }}<br>
+  {% endfor %}
+{% endblock %}
+
+

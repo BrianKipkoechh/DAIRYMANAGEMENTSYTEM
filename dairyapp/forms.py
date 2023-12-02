@@ -1,11 +1,11 @@
 from django import forms
-from .models import Expense, MilkRecord, Delivery, cow, MilkingTime
-from .models import cow
+from .models import Expense, MilkRecord, Delivery, Cow, MilkingTime
+from .models import Cow
 
-class ExpenseForm(forms.ModelForm):
-    class Meta:
-        model = Expense
-        fields = ['cow', 'expense_type', 'amount', 'date']
+class ExpenseForm(forms.Form):
+    expense_type = forms.CharField(max_length=100, label='Expense Type')
+    amount = forms.DecimalField(label='Amount', min_value=0)
+    description = forms.CharField(widget=forms.Textarea, label='Description')
 
 class MilkRecordForm(forms.ModelForm):
     class Meta:
@@ -16,13 +16,29 @@ class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery
         fields = ['cow', 'delivery_date']
-
+class AddCowForm(forms.Form):
+    cow_name = forms.CharField(max_length=100, label='Cow Name')
+    
 class CowForm(forms.ModelForm):
-        # name = forms.CharField(max_length=255, help_text="Enter the cow's name")
-        class Meta:
-            model =cow
-            fields = '__all__'
+    class Meta:
+        model = Cow
+        fields = ['name']
 class MilkingTimeForm(forms.ModelForm):
          class Meta:
             model = MilkingTime
             fields = ['milking_time']
+class SignupForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password and confirm_password and password != confirm_password:
+            raise forms.ValidationError("Passwords do not match.")
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)

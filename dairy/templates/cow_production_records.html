@@ -1,14 +1,10 @@
-<!-- dairyapp/cow_production_records.html -->
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Cow Production Records - {{ cow.name }}</title>
-    <link rel="{% static 'styles.css' %}"
-</head>
-<body>
-    <h1>Cow Production Records - {{ cow.name }}</h1>
+{% extends 'base.html' %}
 
+{% block title %}Cow Production Records - {{ cow.name }}{% endblock %}
+
+{% block header %}Cow Production Records - {{ cow.name }}{% endblock %}
+
+{% block content %}
     <h2>Add Production Record</h2>
     <form method="post" action="">
         {% csrf_token %}
@@ -24,5 +20,4 @@
     </ul>
 
     <a href="{% url 'cow_list' %}">Back to Cow List</a>
-</body>
-</html>
+{% endblock %}

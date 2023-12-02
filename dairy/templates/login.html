@@ -1,87 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+{% extends 'base.html' %}
 
-        .login-container {
-            background-color: blue;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
-        }
+{% block title %}Login{% endblock %}
 
-        .login-button {
-            margin-top: 10px;
-            transition: margin 0.3s ease-in-out;
-        }
-
-        .login-button-hidden {
-            margin-top: 0;
-        }
-    </style>
-</head>
-<body>
-<div class="cows-container">
-            <div class="cow cow1"></div>
-            <div class="cow cow2"></div>
-            <!-- Add more cow elements as needed -->
-        </div>
-
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm" action="your-login-endpoint" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br>
-            <button type="submit" id="loginButton" class="login-button">Login</button>
-        </form>
-        <p>Don't have an account? <a href="your-signup-page">Sign up</a></p>
-        <button onclick="logout()" style="display: none;" id="logoutButton">Logout</button>
-    </div>
-
-    <script>
-        document.getElementById("loginForm").addEventListener("input", function() {
-            var usernameInput = document.getElementById("username").value;
-            var loginButton = document.getElementById("loginButton");
-            var logoutButton = document.getElementById("logoutButton");
-
-            if (usernameInput.trim() === "") {
-                loginButton.classList.add("login-button-hidden");
-            } else {
-                loginButton.classList.remove("login-button-hidden");
-            }
-
-            if (usernameInput.trim() !== "") {
-                logoutButton.style.display = "inline-block";
-            } else {
-                logoutButton.style.display = "none";
-            }
-        });
-
-        function logout() {
-            // Implement your logout logic here
-            alert("Logout clicked!");
-        }
-    </script>
-
-</body>
-</html>
+{% block content %}
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

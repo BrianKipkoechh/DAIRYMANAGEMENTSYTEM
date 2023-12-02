@@ -1,12 +1,13 @@
-<!-- dairyapp/expense_form.html -->
-
 {% extends 'base.html' %}
 
+{% block title %}Enter Expenses{% endblock %}
+
 {% block content %}
-  <h2>Create/Update Expense</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
+    <h2>Enter Expenses</h2>
+    <form method="post" action="{% url 'expense_form' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 {% endblock %}
+
