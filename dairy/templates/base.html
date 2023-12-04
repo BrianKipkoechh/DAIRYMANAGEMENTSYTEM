@@ -2,81 +2,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="data:image/png;base64,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" type="image/x-icon">
+    <style>
+      body {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn2Ntk-MeM48IhzNzgUm3vJslPiJcknwcxEg&usqp=CAU');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'm.css' %}">
-   
-  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.20.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <title>Dairy Management System</title>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'cow_list' %}">Cows</a></li>
-            
-            <li><a href="{% url 'milk_record_list' %}">Milk Records</a></li>
-          
-            <li><a href="{% url 'signup' %}">Signup</a></li>
-            <li><a href="{% url 'add_cow' %}">Add Cow</a></li>
-          
-            <li><a href="{% url 'milking_time_set' %}">Set Milking Time</a></li> 
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'expense_form' %}">Enter Expenses</a></li>
-           
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Dairy Management System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cow_list' %}">Cows</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'milk_record_list' %}"> My Milk Records</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Signup</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'add_cow' %}">Add Cow</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'milking_time_set' %}">Set Milking Time</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'expense_form' %}">Enter Expenses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'milk_record/create' %}">Enter Milk records</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'expense_list' %}">My expenses</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    {% block content %}
-    <div>
-        <h1>Dairy Management System</h1>
-    </div>
 
+    <div class="container mt-4">
+        {% block content %}
+        <div>
+            <h1 class="text-center">Dairy Management System</h1>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                        <h2 class="fs-4 fw-bold">Signup</h2>
+                        <form method="post" action="{% url 'signup' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="col-lg-6">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-door-open"></i></div>
+                        <h2 class="fs-4 fw-bold">Login</h2>
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Cow Form -->
+        <!-- Cows List -->
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <h2 class="text-center">Cows List</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Cow Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cow in cows_list %}
+                        <tr>
+                            <td>{{ cow.cow_name }}</td>
+                            <td>
+                                <form method="post" action="{% url 'delete_cow' cow.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<h2>Input Milk Record</h2>
+<form method="post" action="{% url 'milk_record_create' %}">
+  {% csrf_token %}
+  {{ milk_record_form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+
+            <!-- Enter Expenses Form -->
+            <div class="col-lg-6">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cash-coin"></i></div>
+                        <h2 class="fs-4 fw-bold">Enter Expenses</h2>
+                        <form method="post" action="{% url 'expense_form' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="post" action="{% url 'milk_record_create' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        
+
+        <!-- Milk Records Table -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <h2 class="text-center">Milk Records</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Cow Name</th>
+                            <th>Production Date</th>
+                            <th>Litres Produced</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in milk_records %}
+                            <tr>
+                                <td>{{ record.cow.cow_name }}</td>
+                                <td>{{ record.production_date }}</td>
+                                <td>{{ record.litres_produced }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container mt-4">
+            
+            {% if user.is_authenticated %}
+                <!-- If user is authenticated, show content -->
+                <div>
+                    <h1 class="text-center">Dairy Management System</h1>
+                </div>
     
+                <!-- Your existing content for authenticated users -->
     
-    <div>
+                <!-- Logout button -->
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+            {% else %}
+                <!-- If user is not authenticated, show login form -->
+                <div class="row mt-4">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-door-open"></i></div>
+                                <h2 class="fs-4 fw-bold">Login</h2>
+                                <form method="post" action="{% url 'login' %}">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         
     </div>
-
-    <h2>Signup</h2>
-    <form method="post" action="{% url 'signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-
-    <h2>Login</h2>
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    <h1>Delete Cow</h1>
-        <p>Are you sure you want to delete "{{ object.name }}"?</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit">Confirm Delete</button>
-            <a href="{% url 'cow_list' %}">Cancel</a> 
-        </form>
-
-   
-    <h2>Enter Expenses</h2>
-    <form method="post" action="{% url 'expense_form' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-
-    <main>
-        <!-- Your main content goes here -->
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Brian Kipkoech</p>
-    </footer>
-   
+    {% endif %}
     {% endblock %}
-    <script src="{% static 'scripts.js' %}"></script>
-    
-    
-</body>
+    <!-- Bootstrap JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Your custom scripts -->
+    <script src="{% static 'scripts.js' %}"></script>
+
+</body>
+<footer class="bg-light py-3 mt-4">
+    <div class="container text-center">
+        <p>&copy; 2023 Brian Kipkoech</p>
+    </div>
+</footer>
 </html>

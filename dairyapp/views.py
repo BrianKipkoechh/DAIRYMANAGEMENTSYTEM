@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from pyexpat.errors import messages
-
+from .models import MilkRecord
 from django.views import View
 from .models import Cow
 from .forms import *
@@ -15,11 +15,11 @@ from .forms import MilkingTimeForm
 from django.shortcuts import render
 from django.views.generic import ListView
 from .forms import ExpenseForm
-
+from .models import Expense
 from .forms import SignupForm
 
 from .models import Cow, Expense, MilkRecord, Delivery, MilkingTime
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView,ListView
 from django.urls import reverse_lazy
 from .forms import ExpenseForm, MilkRecordForm, DeliveryForm, MilkingTimeForm
 
@@ -36,17 +36,15 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 def cow_list(request):
     cows = Cow.objects.all()
-    success_message = messages.get_messages(request).first()
+    
     return render(request, 'cow_list.html', {'cows': cows})
 
 def expense_form(request):
     if request.method == 'POST':
         form = ExpenseForm(request.POST)
         if form.is_valid():
-            form.save()
-            print(form.cleaned_data)
-            # Redirect to a success page or any other URL
-            return redirect('expense_list')  # Replace with your actual URL
+            
+            return redirect('expense_list')  # Redirect to the expense list page after saving
     else:
         form = ExpenseForm()
 
@@ -69,22 +67,25 @@ def add_cow(request):
         form = CowForm()
     return render(request, 'add_cow.html', {'form': form})
 
-def milk_record_create(request):
-    if request.method == 'POST':
-        form = MilkRecordForm(request.POST)
-        if form.is_valid():
-            milk_records = MilkRecord.objects.all()
-            form.save()
-            return redirect('milk_record_list')
-    else:
-        form = MilkRecordForm()
-
-    return render(request, 'milk_record_create.html', {'form': form})
 
 def milk_record_list(request):
     milk_records = MilkRecord.objects.all()
+    print(milk_records)
     return render(request, 'milk_record_list.html', {'milk_records': milk_records})
+class MilkRecordCreateView(View):
+    template_name = 'milk_record_form.html'  # The template where you want to render the form
 
+    def get(self, request, *args, **kwargs):
+        form = MilkRecordForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = MilkRecordForm(request.POST)
+        if form.is_valid():
+            # Process the form data, save to the database, etc.
+            # Redirect to a success page or render a different template
+            return redirect('milk_record_list')  # Assuming you have a URL pattern named 'milk_record_list'
+        
 
 def delivery_list(request):
     deliveries = Delivery.objects.all()
@@ -112,11 +113,25 @@ class MilkingTimeDeleteView(DeleteView):
 
 
 # ('dairyapp:delivery_list')# Expense views
-class ExpenseCreateView(CreateView):
-    model = Expense
-    form_class = ExpenseForm
-    template_name = 'expense_form.html'
-    success_url = reverse_lazy('expense_list')
+class ExpenseCreateView(View):
+    template_name = 'expense_form.html'  # Update with your template name
+    form_class = ExpenseForm  # Replace with your actual form class
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save() 
+            # Process the form data and save the expense record
+            expense = form.save()
+            # Redirect to a success page or another relevant view
+            return redirect('expense_list', pk=expense.pk)
+
+        # Form is not valid, render the template with the form and errors
+        return render(request, self.template_name, {'form': form})
 
 
 class ExpenseUpdateView(UpdateView):
@@ -133,12 +148,13 @@ class ExpenseDeleteView(DeleteView):
 
 
 # MilkRecord views
-class MilkRecordCreateView(CreateView):
+class MilkRecordCreateView(View):
     model = MilkRecord
     form_class = MilkRecordForm
-    template_name = 'milk_record_form.html'
+    template_name = 'milk_record_form.html'  # The template where you want to render the form
     success_url = reverse_lazy('milk_record_list')
 
+   
 
 class MilkRecordUpdateView(UpdateView):
     model = MilkRecord
@@ -151,7 +167,24 @@ class MilkRecordDeleteView(DeleteView):
     model = MilkRecord
     template_name = 'milk_record_confirm_delete.html'
     success_url = reverse_lazy('milk_record_list')
+class MilkRecordListView(ListView):
+    model = MilkRecord
+    template_name = 'milk_record_list.html'  # Adjust this to your template name
+    context_object_name = 'milk_records'
+class MilkRecordForm(View):
+    template_name = 'milk_record_form.html'  # The template where you want to render the form
 
+    def get(self, request, *args, **kwargs):
+        form = MilkRecordForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = MilkRecordForm(request.POST)
+        if form.is_valid():
+            # Process the form data, save to the database, etc.
+            # Redirect to a success page or render a different template
+            return render(request, 'success_template.html')
+        return render(request, self.template_name, {'form': form})
 
 # Delivery views
 class DeliveryCreateView(CreateView):
@@ -310,17 +343,27 @@ class LoginView(View):
         # If form is invalid or authentication fails, render the login page with the form and errors
                 return render(request, self.template_name, {'form': form})
 def delete_cow(request, cow_id):
-    Cow = Cow.objects.get(id=cow_id)
-    Cow.delete()
+    cow = get_object_or_404(Cow, id=cow_id)
+    cow.delete()
     return redirect('cow_list')
-def add_milk_record(request):
-    if request.method == 'POST':
-        form = MilkRecordForm(request.POST)
-        if form.is_valid():
-            milk_records = MilkRecord.objects.all()
-            form.save()
-            return redirect('milk_record_list')  # Replace 'milk_record_list' with your actual URL name for the milk record list view
-    else:
-        form = MilkRecordForm()
+class MilkRecordCreateView(View):
+    template_name = 'milk_record_form.html'  # Update with your template name
+    form_class = MilkRecordForm  # Replace with your actual form class
 
-    return render(request, 'milk_record_list.html', {'form': form})
+  
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # Process the form data and save the milk record
+            milk_record = form.save()
+            # Redirect to a success page or another relevant view
+            return redirect('milk_record_list')
+        return render(request, self.template_name, {'form': form})
+       
+    def __init__(self, *args, **kwargs):
+        super(MilkRecordCreateView, self).__init__(*args, **kwargs)

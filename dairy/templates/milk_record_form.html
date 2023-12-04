@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
+{% block title %}Input Milk Record{% endblock %}
+
 {% block content %}
-  <!-- Your add milk record form goes here -->
-  <h2>Add Milk Record</h2>
-  <form method="post" action="{% url 'milk_record_create' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Milk Record</button>
-  </form>
+    <h2>Input Milk Record</h2>
+    <form method="post" action="{% url 'milk_record/create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 {% endblock %}

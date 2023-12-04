@@ -1,17 +1,22 @@
 from django import forms
 from .models import Expense, MilkRecord, Delivery, Cow, MilkingTime
 from .models import Cow
+from django.views import View
+
+
+
 
 class ExpenseForm(forms.Form):
-    expense_type = forms.CharField(max_length=100, label='Expense Type')
-    amount = forms.DecimalField(label='Amount', min_value=0)
-    description = forms.CharField(widget=forms.Textarea, label='Description')
+  class Meta:
+        model = Expense
+        fields = ['description', 'amount']
 
 class MilkRecordForm(forms.ModelForm):
     class Meta:
         model = MilkRecord
         fields = ['cow', 'amount', 'date']
 
+   
 class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery

@@ -12,11 +12,9 @@ class Cow(models.Model):
         return self.name
 
 class Expense(models.Model):
-    cow = models.ForeignKey(Cow, on_delete=models.CASCADE)
-    expense_type = models.CharField(max_length=255)
-    amount = models.FloatField()
-    date = models.DateField()
-
+    description = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    
 class MilkRecord(models.Model):
     cow = models.ForeignKey(Cow, on_delete=models.CASCADE)
     amount = models.FloatField()
